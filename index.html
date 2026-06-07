@@ -1,303 +1,186 @@
 <!DOCTYPE html>
-
 <html lang="de">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Eine Überraschung für Hannah & Chris</title>
 
 <style>
 
 body{
-
-    margin:0;
-
-    font-family:Georgia, serif;
-
-    background:linear-gradient(135deg,#f8f3ee,#ffffff);
-
-    color:#4a3b32;
-
-    text-align:center;
-
-    min-height:100vh;
-
+    margin:0;
+    font-family:Georgia, serif;
+    background:linear-gradient(135deg,#f8f3ee,#ffffff);
+    color:#4a3b32;
+    text-align:center;
+    min-height:100vh;
 }
 
 .container{
-
-    max-width:760px;
-
-    margin:60px auto;
-
-    padding:35px;
-
-    background:white;
-
-    border-radius:20px;
-
-    box-shadow:0 8px 30px rgba(0,0,0,.12);
-
+    max-width:760px;
+    margin:60px auto;
+    padding:35px;
+    background:white;
+    border-radius:20px;
+    box-shadow:0 8px 30px rgba(0,0,0,.12);
 }
 
 h1{
-
-    margin-bottom:10px;
-
+    margin-bottom:10px;
 }
 
 .date{
-
-    margin-bottom:30px;
-
-    font-size:1.1rem;
-
+    margin-bottom:30px;
+    font-size:1.1rem;
 }
 
 input{
-
-    padding:12px;
-
-    width:70%;
-
-    max-width:360px;
-
-    border-radius:8px;
-
-    border:1px solid #ccc;
-
-    font-size:16px;
-
+    padding:12px;
+    width:70%;
+    max-width:360px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
 }
 
 button{
-
-    padding:12px 18px;
-
-    border:none;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-    font-size:16px;
-
-    margin-left:8px;
-
+    padding:12px 18px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    margin-left:8px;
 }
 
 button:hover{
-
-    opacity:0.9;
-
+    opacity:0.9;
 }
 
+/* 🔒 wichtig: wirklich sicher versteckt */
 .hidden{
-
-    display:none;
-
+    display:none !important;
 }
 
+/* 💡 Einblendung */
 .success{
+    margin-top:25px;
+    padding:25px;
+    border-radius:12px;
+    background:#f7f2ea;
 
-    margin-top:25px;
+    opacity:0;
+    transform:translateY(10px);
+    transition:all 0.6s ease;
+}
 
-    padding:25px;
-
-    border-radius:12px;
-
-    background:#f7f2ea;
-
+.success.show{
+    opacity:1;
+    transform:translateY(0);
 }
 
 a{
-
-    color:#7b5a4b;
-
-    font-weight:bold;
-
-    text-decoration:none;
-
+    color:#7b5a4b;
+    font-weight:bold;
+    text-decoration:none;
 }
 
 a:hover{
-
-    text-decoration:underline;
-
+    text-decoration:underline;
 }
 
 #msg{
-
-    margin-top:15px;
-
-    font-weight:bold;
-
+    margin-top:15px;
+    font-weight:bold;
 }
 
-/* Herzanimation */
-
+/* ❤️ Herzen */
 #hearts{
-
-    position:fixed;
-
-    inset:0;
-
-    pointer-events:none;
-
-    overflow:hidden;
-
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
 }
 
 .heart{
-
-    position:fixed;
-
-    font-size:24px;
-
-    animation:floatUp 3s linear forwards;
-
+    position:fixed;
+    font-size:24px;
+    animation:floatUp 3s linear forwards;
 }
 
 @keyframes floatUp{
-
-    from{
-
-        transform:translateY(0);
-
-        opacity:1;
-
-    }
-
-    to{
-
-        transform:translateY(-300px);
-
-        opacity:0;
-
-    }
-
+    from{
+        transform:translateY(0);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-300px);
+        opacity:0;
+    }
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1>💍 Eine Überraschung für Hannah & Chris</h1>
+    <h1>💍 Eine Überraschung für Hannah & Chris</h1>
 
-    <div class="date">
+    <div class="date">
+        08.08.2026
+    </div>
 
-        08.08.2026
+    <p>
+        Liebe Hannah, lieber Chris,
+        <br><br>
+        wenn ihr das Lösungswort aus der Hochzeitszeitung
+        herausgefunden habt, wartet dahinter eine ganz
+        besondere Überraschung auf euch. ❤️
+    </p>
 
-    </div>
+    <input id="pw" type="text" placeholder="Lösungswort eingeben">
 
-    <p>
+    <button onclick="checkPassword()">
+        💍 Überraschung freischalten
+    </button>
 
-        Liebe Hannah, lieber Chris,
+    <p id="msg"></p>
 
-        <br><br>
+    <div id="content" class="hidden success">
+        <h2>🎉 Herzlichen Glückwunsch!</h2>
 
-        wenn ihr das Lösungswort aus der Hochzeitszeitung
+        <p>Ihr habt das Rätsel gelöst und eure geheime Botschaft freigeschaltet.</p>
 
-        herausgefunden habt, wartet dahinter eine ganz
+        <p>Diese Videobotschaft ist für euch:</p>
 
-        besondere Überraschung auf euch. ❤️
+        <p>
+            <a href="https://www.dropbox.com/scl/fo/vh4ihomzwv2rqk1u517f3/ANnyqHS0mf2rJpW0QK5KQVw?rlkey=ac0hqj1kiuzamjy70ro0w2my1&st=p9snnmxw&dl=0" target="_blank">
+                ▶ Videobotschaft ansehen
+            </a>
+        </p>
 
-    </p>
+        <p>
+            <a href="https://www.dropbox.com/scl/fo/vh4ihomzwv2rqk1u517f3/ANnyqHS0mf2rJpW0QK5KQVw?rlkey=ac0hqj1kiuzamjy70ro0w2my1&st=p9snnmxw&dl=0" target="_blank">
+                ⬇ Videobotschaft herunterladen
+            </a>
+        </p>
 
-    <input
+        <hr>
 
-        id="pw"
+        <p>
+            Wir wünschen euch von Herzen alles Liebe für euren gemeinsamen Lebensweg.
+            <br><br>
+            ❤️ Jonas, Laura und Malia ❤️
+        </p>
 
-        type="text"
-
-        placeholder="Lösungswort eingeben"
-
-    >
-
-    <button onclick="checkPassword()">
-
-        💍 Überraschung freischalten
-
-    </button>
-
-    <p id="msg"></p>
-
-    <div id="content" class="hidden success">
-
-        <h2>🎉 Herzlichen Glückwunsch!</h2>
-
-        <p>
-
-            Ihr habt das Rätsel gelöst und eure geheime
-
-            Botschaft freigeschaltet.
-
-        </p>
-
-        <p>
-
-            Diese Videobotschaft ist für euch:
-
-        </p>
-
-        <p>
-
-            <a href="https://www.dropbox.com/scl/fo/vh4ihomzwv2rqk1u517f3/ANnyqHS0mf2rJpW0QK5KQVw?rlkey=ac0hqj1kiuzamjy70ro0w2my1&st=p9snnmxw&dl=0" target="_blank">
-
-                ▶ Videobotschaft ansehen
-
-            </a>
-
-        </p>
-
-        <p>
-
-            <a href="https://www.dropbox.com/scl/fo/vh4ihomzwv2rqk1u517f3/ANnyqHS0mf2rJpW0QK5KQVw?rlkey=ac0hqj1kiuzamjy70ro0w2my1&st=p9snnmxw&dl=0" target="_blank">
-
-                ⬇ Videobotschaft herunterladen
-
-            </a>
-
-        </p>
-
-        <hr>
-
-        <p>
-
-            Wir wünschen euch von Herzen alles Liebe
-
-            für euren gemeinsamen Lebensweg.
-
-            <br><br>
-
-            Liebe Grüße
-
-            <br><br>
-
-            ❤️ Jonas, Laura und Malia ❤️
-
-        </p>
-
-        <p>
-
-            Zur Hochzeit von Hannah & Chris
-
-            <br>
-
-            08.08.2026
-
-        </p>
-
-    </div>
-
+        <p>
+            Zur Hochzeit von Hannah & Chris
+            <br>
+            08.08.2026
+        </p>
+    </div>
 </div>
 
 <div id="hearts"></div>
@@ -307,89 +190,57 @@ a:hover{
 const PASSWORD = "OHANAMEANSFAMILY";
 
 function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
 
-    const heart = document.createElement("div");
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.bottom = "0px";
 
-    heart.className = "heart";
+    document.getElementById("hearts").appendChild(heart);
 
-    heart.innerHTML = "❤️";
-
-    heart.style.left =
-
-        Math.random() * window.innerWidth + "px";
-
-    heart.style.bottom = "0px";
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-
-        heart.remove();
-
-    }, 3000);
-
+    setTimeout(() => {
+        heart.remove();
+    }, 3000);
 }
 
 function celebrate() {
-
-    for(let i = 0; i < 25; i++) {
-
-        setTimeout(() => {
-
-            createHeart();
-
-        }, i * 120);
-
-    }
-
+    for(let i = 0; i < 25; i++) {
+        setTimeout(createHeart, i * 120);
+    }
 }
 
 function checkPassword(){
 
-    const input =
+    const input = document.getElementById("pw").value.trim().toUpperCase();
 
-        document.getElementById("pw")
+    if(input === PASSWORD){
 
-        .value
+        const content = document.getElementById("content");
+        content.classList.remove("hidden");
+        content.classList.add("show");
 
-        .trim()
+        document.getElementById("msg").innerHTML = "";
 
-        .toUpperCase();
+        document.getElementById("pw").style.display = "none";
+        document.querySelector("button").style.display = "none";
 
-    if(input === PASSWORD){
+        celebrate();
 
-        document
-
-            .getElementById("content")
-
-            .classList
-
-            .remove("hidden");
-
-        document
-
-            .getElementById("msg")
-
-            .innerHTML = "";
-
-        celebrate();
-
-    } else {
-
-        document
-
-            .getElementById("msg")
-
-            .innerHTML =
-
-            "❌ Das Lösungswort ist leider nicht korrekt.";
-
-    }
-
+    } else {
+        document.getElementById("msg").innerHTML =
+        "❌ Das Lösungswort ist leider nicht korrekt.";
+    }
 }
+
+/* Enter-Taste Support */
+document.getElementById("pw").addEventListener("keydown", function(e){
+    if(e.key === "Enter"){
+        checkPassword();
+    }
+});
 
 </script>
 
 </body>
-
 </html>
