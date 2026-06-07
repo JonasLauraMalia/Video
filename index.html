@@ -57,12 +57,12 @@ button:hover{
     opacity:0.9;
 }
 
-/* 🔒 wichtig: wirklich sicher versteckt */
+/* 🔒 komplett versteckt */
 .hidden{
     display:none !important;
 }
 
-/* 💡 Einblendung */
+/* 🎉 Einblendung nach Erfolg */
 .success{
     margin-top:25px;
     padding:25px;
@@ -135,9 +135,8 @@ a:hover{
     <p>
         Liebe Hannah, lieber Chris,
         <br><br>
-        wenn ihr das Lösungswort aus der Hochzeitszeitung
-        herausgefunden habt, wartet dahinter eine ganz
-        besondere Überraschung auf euch. ❤️
+        wenn ihr das Lösungswort aus der Hochzeitszeitung herausgefunden habt,
+        wartet dahinter eine ganz besondere Überraschung auf euch. ❤️
     </p>
 
     <input id="pw" type="text" placeholder="Lösungswort eingeben">
@@ -148,22 +147,23 @@ a:hover{
 
     <p id="msg"></p>
 
+    <!-- 🔒 wird erst nach Passwort sichtbar -->
     <div id="content" class="hidden success">
+
         <h2>🎉 Herzlichen Glückwunsch!</h2>
 
-        <p>Ihr habt das Rätsel gelöst und eure geheime Botschaft freigeschaltet.</p>
-
-        <p>Diese Videobotschaft ist für euch:</p>
-
         <p>
-            <a href="https://www.dropbox.com/scl/fo/vh4ihomzwv2rqk1u517f3/ANnyqHS0mf2rJpW0QK5KQVw?rlkey=ac0hqj1kiuzamjy70ro0w2my1&st=p9snnmxw&dl=0" target="_blank">
-                ▶ Videobotschaft ansehen
-            </a>
+            Ihr habt das Rätsel gelöst und eure geheime Botschaft freigeschaltet.
         </p>
 
         <p>
-            <a href="https://www.dropbox.com/scl/fo/vh4ihomzwv2rqk1u517f3/ANnyqHS0mf2rJpW0QK5KQVw?rlkey=ac0hqj1kiuzamjy70ro0w2my1&st=p9snnmxw&dl=0" target="_blank">
-                ⬇ Videobotschaft herunterladen
+            Diese Videobotschaft ist für euch:
+        </p>
+
+        <p>
+            <a href="https://www.dropbox.com/scl/fo/vh4ihomzwv2rqk1u517f3/ANnyqHS0mf2rJpW0QK5KQVw?rlkey=ac0hqj1kiuzamjy70ro0w2my1&st=p9snnmxw&dl=0"
+               target="_blank">
+                ▶ Videobotschaft ansehen
             </a>
         </p>
 
@@ -176,11 +176,12 @@ a:hover{
         </p>
 
         <p>
-            Zur Hochzeit von Hannah & Chris
-            <br>
+            Zur Hochzeit von Hannah & Chris<br>
             08.08.2026
         </p>
+
     </div>
+
 </div>
 
 <div id="hearts"></div>
@@ -195,13 +196,9 @@ function createHeart() {
     heart.innerHTML = "❤️";
 
     heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.bottom = "0px";
-
     document.getElementById("hearts").appendChild(heart);
 
-    setTimeout(() => {
-        heart.remove();
-    }, 3000);
+    setTimeout(() => heart.remove(), 3000);
 }
 
 function celebrate() {
@@ -217,11 +214,13 @@ function checkPassword(){
     if(input === PASSWORD){
 
         const content = document.getElementById("content");
+
         content.classList.remove("hidden");
         content.classList.add("show");
 
         document.getElementById("msg").innerHTML = "";
 
+        // Input + Button ausblenden
         document.getElementById("pw").style.display = "none";
         document.querySelector("button").style.display = "none";
 
@@ -233,7 +232,7 @@ function checkPassword(){
     }
 }
 
-/* Enter-Taste Support */
+/* Enter Taste */
 document.getElementById("pw").addEventListener("keydown", function(e){
     if(e.key === "Enter"){
         checkPassword();
